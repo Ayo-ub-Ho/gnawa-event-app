@@ -1,35 +1,78 @@
+# ================================
+# GLOBAL IGNORES
+# ================================
+
 # Dependencies
 node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+package-lock.json
+yarn.lock
+
+# ================================
+# BACKEND SPECIFIC
+# ================================
+
+backend/.env
+backend/dist/
+backend/logs/
+backend/*.log
+backend/node_modules/
+
+# ================================
+# MOBILE/FRONTEND SPECIFIC
+# ================================
+
+# Expo
+mobile/.expo/
+mobile/.expo-shared/
+mobile/dist/
+mobile/web-build/
+
+# React Native
+mobile/ios/Pods/
+mobile/ios/build/
+mobile/android/app/build/
+mobile/android/.gradle/
+
+# Metro
+mobile/.metro-health-check*
 
 # Environment
-.env
-.env.local
-.env.*.local
+mobile/.env
+mobile/.env.local
 
+# ================================
 # IDE
+# ================================
+
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
-
-# OS
 .DS_Store
+
+# ================================
+# OS
+# ================================
+
 Thumbs.db
+.DS_Store
 
-# Logs
-logs/
-*.log
+# ================================
+# DOCUMENTATION
+# ================================
 
-# Build
-dist/
-build/
-.expo/
-.expo-shared/
+docs/*.tmp
+docs/~$*
 
-# Misc
+# ================================
+# MISC
+# ================================
+
 *.orig
 .cache/
+temp/
+tmp/
