@@ -35,4 +35,4 @@ Consultez les README dans chaque dossier pour plus de détails :
 
 ## 👤 Auteur
 
-Développé par [Votre Nom] - Décembre 2025
+Développé par EL QASRY AYYOUB - Décembre 2025
