@@ -1,4 +1,4 @@
-# 🎵 La Grande Soirée Gnawa - Monorepo
+# 🎵 La Grande Soirée Gnawa
 
 Application mobile complète pour la gestion de l'événement "La Grande Soirée Gnawa" à Agadir.
 
@@ -11,6 +11,7 @@ Application mobile complète pour la gestion de l'événement "La Grande Soirée
 ## 🚀 Quick Start
 
 ### Backend
+
 ```bash
 cd backend
 npm install
@@ -18,6 +19,7 @@ npm run dev
 ```
 
 ### Mobile
+
 ```bash
 cd mobile
 npm install
@@ -27,6 +29,7 @@ npm start
 ## 📚 Documentation
 
 Consultez les README dans chaque dossier pour plus de détails :
+
 - [Backend README](./backend/README.md)
 - [Mobile README](./mobile/README.md)
 
