@@ -127,7 +127,7 @@ MIT
 
 ## 👤 Auteur
 
-**[EL QASRY AYYOUB]**
+**EL QASRY AYYOUB**
 
 - GitHub: [@Ayo-ub-Ho](https://github.com/Ayo-ub-Ho)
 - Email: elqasryayyoub@email.com
