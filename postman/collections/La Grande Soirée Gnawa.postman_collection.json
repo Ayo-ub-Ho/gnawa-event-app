@@ -1,0 +1,204 @@
+{
+  "info": {
+    "_postman_id": "8a86453b-828f-4882-ac3e-029fbf520315",
+    "name": "La Grande Soirée Gnawa",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health & Setup",
+      "item": [
+        {
+          "name": "Health Check",
+          "id": "4d5d9cb7-a6f9-44d4-a405-0528382de89b",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/health",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "health"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "8a224afe-b0f2-4912-a87b-3ccda0fa3283"
+    },
+    {
+      "name": "Event Management",
+      "item": [
+        {
+          "name": "Get Event Info",
+          "id": "f75d31fb-7dfb-492e-bddf-9478fbd7e1bf",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/event",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "event"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "7b699176-3bc7-4d20-9c76-ad18b110a862"
+    },
+    {
+      "name": "Artists Management",
+      "item": [
+        {
+          "name": "Get All Artists",
+          "id": "7a4be1ec-f7d8-46db-807a-c631530f05b5",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "Get Artist by ID",
+          "id": "e919908c-9273-4230-994b-7e65bc93bd0b",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/artists/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "artists",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Artist",
+          "id": "1a78a8ce-be41-4857-9fd4-eb0d2a0971c0",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/artists",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "artists"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Artist",
+          "id": "7a5eb18a-1f92-42cd-ab40-a44af841bfbc",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Updated Test Artist\",\r\n  \"bio\": \"Updated biography\",\r\n  \"genre\": \"Gnawa Test\",\r\n  \"photo_url\": \"https://via.placeholder.com/400\",\r\n  \"performance_time\": \"23:00 - 00:00\",\r\n  \"performance_order\": 10,\r\n  \"is_headliner\": false\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/artists/6",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "artists",
+                "6"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Artist",
+          "id": "05902f81-9791-459e-a035-87216b0e2192",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Updated Test Artist\",\r\n  \"bio\": \"Updated biography\",\r\n  \"genre\": \"Gnawa Test\",\r\n  \"photo_url\": \"https://via.placeholder.com/400\",\r\n  \"performance_time\": \"23:00 - 00:00\",\r\n  \"performance_order\": 10,\r\n  \"is_headliner\": false\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/artists/6",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "artists",
+                "6"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "1a9bc525-2fc8-47bd-978a-8d6a82542ee8"
+    },
+    {
+      "name": "Bookings Management",
+      "item": [
+        {
+          "name": "Create Booking",
+          "id": "b1d1bcdc-c8fe-4d53-a57d-b2c4778145c4",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/bookings",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "bookings"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "be7ae434-9997-4190-bac6-95f4488bc6b8"
+    }
+  ]
+}
