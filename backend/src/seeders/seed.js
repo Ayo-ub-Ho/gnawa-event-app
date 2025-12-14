@@ -21,7 +21,7 @@ const seedDatabase = async () => {
       available_tickets: 500,
       ticket_price: 150.0,
       banner_image:
-        "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800",
+        "https://www.middleeasteye.net/sites/default/files/styles/read_more/public/005_025_Gnaoua_Festival_byClaudiaWiens_0.jpg.webp?itok=IEbgLjrJ",
     });
     console.log("✅ Event info created");
 
@@ -32,7 +32,7 @@ const seedDatabase = async () => {
         bio: "L une des figures les plus emblématiques de la musique Gnawa, reconnu pour sa voix puissante et son style unique fusionnant tradition et modernité.",
         genre: "Gnawa Fusion & Traditionnel",
         photo_url:
-          "https://upload.wikimedia.org/wikipedia/commons/7/7b/Hamid_El_Kasri.jpg",
+          "https://mediorientedintorni.com/wp-content/uploads/2020/01/photo5857085062795866452.jpg",
         performance_time: "21:00 - 22:00",
         performance_order: 2,
         is_headliner: true,
@@ -43,7 +43,7 @@ const seedDatabase = async () => {
         bio: "Maître de la musique Gnawa, Hassan Boussou perpétue la tradition avec passion depuis plus de 30 ans.",
         genre: "Gnawa Traditionnel",
         photo_url:
-          "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400",
+          "https://event31.com/storage/images/tFvKlDlyaJxzrYLshhSG7W9DtmjwAM0o6efyUnoe.png",
         performance_time: "20:00 - 21:00",
         performance_order: 1,
         is_headliner: true,
@@ -53,7 +53,7 @@ const seedDatabase = async () => {
         bio: "Groupe féminin qui modernise la musique Gnawa avec des influences contemporaines.",
         genre: "Gnawa Fusion",
         photo_url:
-          "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400",
+          "https://www.middleeasteye.net/sites/default/files/styles/article_page/public/images-story/maroc-gnaoua-femmes-musique-2023-afp.jpg.webp?itok=tEwc0i13",
         performance_time: "21:15 - 22:00",
         performance_order: 2,
         is_headliner: false,
@@ -63,7 +63,7 @@ const seedDatabase = async () => {
         bio: "Collectif de jeunes musiciens qui réinventent le Gnawa avec des sonorités modernes.",
         genre: "Gnawa Moderne",
         photo_url:
-          "https://images.unsplash.com/photo-1511735111819-9a3f7709049c?w=400",
+          "https://www.lespetitesexperiences.com/wp-content/uploads/2025/06/Gnawa.jpg",
         performance_time: "22:15 - 23:00",
         performance_order: 3,
         is_headliner: false,
@@ -73,7 +73,7 @@ const seedDatabase = async () => {
         bio: "Figure emblématique du Gnawa, connu pour ses performances spirituelles intenses.",
         genre: "Gnawa Spirituel",
         photo_url:
-          "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400",
+          "https://www.middleeasteye.net/sites/default/files/styles/read_more/public/005_025_Gnaoua_Festival_byClaudiaWiens_0.jpg.webp?itok=IEbgLjrJ",
         performance_time: "23:15 - 00:00",
         performance_order: 4,
         is_headliner: true,
