@@ -1,6 +1,6 @@
 const API_BASE_URL = __DEV__
-  ? "http://192.168.1.143:5000/api" // CHANGE THIS TO YOUR LOCAL IP
-  : "https://your-production-api.com/api"; // Production URL
+  ? "http://192.168.1.143:5000/api"
+  : "https://your-production-api.com/api";
 
 export const CONFIG = {
   API_BASE_URL,

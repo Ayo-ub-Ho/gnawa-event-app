@@ -1,5 +1,5 @@
 export const COLORS = {
-  primary: "#8B4513", // Saddle Brown (Gnawa inspired)
+  primary: "#ee4305ff", // Saddle Brown (Gnawa inspired) // "#8B4513"
   secondary: "#DAA520", // Goldenrod
   background: "#F5F5DC", // Beige
   card: "#FFFFFF", // White
