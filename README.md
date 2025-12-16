@@ -100,8 +100,7 @@ npm start
 
 ## 📚 Documentation
 
-- [Backend Documentation](./backend/README.md)
-- [Mobile Documentation](./mobile/README.md)
+- [Presentation ](https://drive.google.com/drive/home)
 - [Architecture](./docs/architecture.md)
 - [User Stories](./docs/user-stories.md)
 - [Postman Collection](./docs/postman-collection.json)

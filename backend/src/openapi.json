@@ -1,0 +1,841 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "La Grande Soirée Gnawa API",
+    "version": "1.0.0",
+    "description": "API documentation for La Grande Soirée Gnawa event management system - Manage artists, bookings, and event information for the Gnawa music festival.",
+    "contact": {
+      "name": "API Support"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000",
+      "description": "Development server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "System",
+      "description": "System health and status endpoints"
+    },
+    {
+      "name": "Event",
+      "description": "Event information management"
+    },
+    {
+      "name": "Artists",
+      "description": "Artist management endpoints"
+    },
+    {
+      "name": "Bookings",
+      "description": "Ticket booking management"
+    }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "Health check endpoint",
+        "description": "Check if the API server is running and healthy",
+        "operationId": "getHealth",
+        "tags": ["System"],
+        "responses": {
+          "200": {
+            "description": "Server is healthy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/event": {
+      "get": {
+        "summary": "Get event information",
+        "description": "Retrieve the current event details including date, venue, ticket availability, and pricing",
+        "operationId": "getEventInfo",
+        "tags": ["Event"],
+        "responses": {
+          "200": {
+            "description": "Event information retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/SuccessResponse" },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "data": { "$ref": "#/components/schemas/EventInfo" }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Event not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/artists": {
+      "get": {
+        "summary": "Get all artists",
+        "description": "Retrieve a list of all artists performing at the event, sorted by headliner status and performance order",
+        "operationId": "getAllArtists",
+        "tags": ["Artists"],
+        "responses": {
+          "200": {
+            "description": "List of artists retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/SuccessResponse" },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "count": {
+                          "type": "integer",
+                          "description": "Total number of artists",
+                          "example": 5
+                        },
+                        "data": {
+                          "type": "array",
+                          "items": { "$ref": "#/components/schemas/Artist" }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new artist",
+        "description": "Add a new artist to the event lineup (Admin only)",
+        "operationId": "createArtist",
+        "tags": ["Artists"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateArtistRequest" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Artist created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/SuccessResponse" },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "data": { "$ref": "#/components/schemas/Artist" }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error - Name and bio are required",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/artists/{id}": {
+      "get": {
+        "summary": "Get artist by ID",
+        "description": "Retrieve detailed information about a specific artist",
+        "operationId": "getArtistById",
+        "tags": ["Artists"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Artist ID",
+            "schema": {
+              "type": "integer",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Artist retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/SuccessResponse" },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "data": { "$ref": "#/components/schemas/Artist" }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Artist not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update an artist",
+        "description": "Update artist information (Admin only)",
+        "operationId": "updateArtist",
+        "tags": ["Artists"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Artist ID",
+            "schema": {
+              "type": "integer",
+              "example": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateArtistRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Artist updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/SuccessResponse" },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "data": { "$ref": "#/components/schemas/Artist" }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Artist not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete an artist",
+        "description": "Remove an artist from the event lineup (Admin only)",
+        "operationId": "deleteArtist",
+        "tags": ["Artists"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Artist ID",
+            "schema": {
+              "type": "integer",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Artist deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/SuccessResponse" },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Artist deleted successfully"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Artist not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/bookings": {
+      "post": {
+        "summary": "Create a new booking",
+        "description": "Book tickets for the event. Automatically generates a confirmation code and updates available tickets.",
+        "operationId": "createBooking",
+        "tags": ["Bookings"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateBookingRequest" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Booking created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/SuccessResponse" },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Booking created successfully"
+                        },
+                        "data": { "$ref": "#/components/schemas/Booking" }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error or insufficient tickets",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" },
+                "examples": {
+                  "missingFields": {
+                    "summary": "Missing required fields",
+                    "value": {
+                      "success": false,
+                      "message": "All fields are required"
+                    }
+                  },
+                  "invalidTickets": {
+                    "summary": "Invalid ticket count",
+                    "value": {
+                      "success": false,
+                      "message": "Number of tickets must be between 1 and 10"
+                    }
+                  },
+                  "insufficientTickets": {
+                    "summary": "Not enough tickets available",
+                    "value": {
+                      "success": false,
+                      "message": "Only 5 tickets available"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Event not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/bookings/code/{code}": {
+      "get": {
+        "summary": "Get booking by confirmation code",
+        "description": "Retrieve booking details using the unique confirmation code",
+        "operationId": "getBookingByCode",
+        "tags": ["Bookings"],
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "description": "Booking confirmation code (case-insensitive)",
+            "schema": {
+              "type": "string",
+              "example": "GNAWA123"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Booking retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/SuccessResponse" },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "data": { "$ref": "#/components/schemas/Booking" }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Booking not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/bookings/email/{email}": {
+      "get": {
+        "summary": "Get bookings by email",
+        "description": "Retrieve all bookings associated with a customer email address",
+        "operationId": "getBookingsByEmail",
+        "tags": ["Bookings"],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "description": "Customer email address (case-insensitive)",
+            "schema": {
+              "type": "string",
+              "format": "email",
+              "example": "john.doe@example.com"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Bookings retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/SuccessResponse" },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "count": {
+                          "type": "integer",
+                          "description": "Number of bookings found",
+                          "example": 2
+                        },
+                        "data": {
+                          "type": "array",
+                          "items": { "$ref": "#/components/schemas/Booking" }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "SuccessResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          }
+        },
+        "required": ["success"]
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": false
+          },
+          "message": {
+            "type": "string",
+            "description": "Error message describing what went wrong"
+          }
+        },
+        "required": ["success", "message"]
+      },
+      "HealthResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "OK"
+          },
+          "message": {
+            "type": "string",
+            "example": "La Grande Soirée Gnawa API"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "environment": {
+            "type": "string",
+            "example": "development"
+          }
+        }
+      },
+      "EventInfo": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Event ID",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "description": "Event title",
+            "example": "La Grande Soirée Gnawa"
+          },
+          "description": {
+            "type": "string",
+            "description": "Event description",
+            "example": "Une soirée exceptionnelle célébrant la musique Gnawa traditionnelle du Maroc"
+          },
+          "event_date": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Event date and time",
+            "example": "2025-07-15T20:00:00.000Z"
+          },
+          "location": {
+            "type": "string",
+            "description": "Event location/city",
+            "example": "Marrakech, Morocco"
+          },
+          "venue": {
+            "type": "string",
+            "description": "Venue name",
+            "example": "Palais El Badi"
+          },
+          "total_capacity": {
+            "type": "integer",
+            "description": "Total venue capacity",
+            "example": 500
+          },
+          "available_tickets": {
+            "type": "integer",
+            "description": "Number of tickets still available",
+            "example": 350
+          },
+          "ticket_price": {
+            "type": "string",
+            "format": "decimal",
+            "description": "Ticket price in MAD",
+            "example": "150.00"
+          },
+          "banner_image": {
+            "type": "string",
+            "nullable": true,
+            "description": "URL to event banner image",
+            "example": "https://example.com/banner.jpg"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Artist": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Artist ID",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "description": "Artist name",
+            "example": "Maâlem Hamid El Kasri"
+          },
+          "bio": {
+            "type": "string",
+            "description": "Artist biography",
+            "example": "Maître Gnawa renommé, gardien des traditions spirituelles et musicales du Maroc"
+          },
+          "genre": {
+            "type": "string",
+            "description": "Music genre",
+            "example": "Gnawa"
+          },
+          "photo_url": {
+            "type": "string",
+            "nullable": true,
+            "description": "URL to artist photo",
+            "example": "https://example.com/artist.jpg"
+          },
+          "performance_time": {
+            "type": "string",
+            "nullable": true,
+            "description": "Performance time slot (format: HH:MM - HH:MM)",
+            "example": "20:00 - 21:00"
+          },
+          "performance_order": {
+            "type": "integer",
+            "description": "Order of performance",
+            "example": 1
+          },
+          "is_headliner": {
+            "type": "boolean",
+            "description": "Whether the artist is a headliner",
+            "example": true
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "CreateArtistRequest": {
+        "type": "object",
+        "required": ["name", "bio"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Artist name",
+            "example": "Maâlem Hamid El Kasri"
+          },
+          "bio": {
+            "type": "string",
+            "description": "Artist biography",
+            "example": "Maître Gnawa renommé"
+          },
+          "genre": {
+            "type": "string",
+            "description": "Music genre (defaults to 'Gnawa')",
+            "example": "Gnawa"
+          },
+          "photo_url": {
+            "type": "string",
+            "description": "URL to artist photo",
+            "example": "https://example.com/artist.jpg"
+          },
+          "performance_time": {
+            "type": "string",
+            "description": "Performance time slot (format: HH:MM - HH:MM)",
+            "example": "20:00 - 21:00"
+          },
+          "performance_order": {
+            "type": "integer",
+            "description": "Order of performance (defaults to 0)",
+            "example": 1
+          },
+          "is_headliner": {
+            "type": "boolean",
+            "description": "Whether the artist is a headliner (defaults to false)",
+            "example": true
+          }
+        }
+      },
+      "UpdateArtistRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Artist name",
+            "example": "Maâlem Hamid El Kasri"
+          },
+          "bio": {
+            "type": "string",
+            "description": "Artist biography",
+            "example": "Maître Gnawa renommé"
+          },
+          "genre": {
+            "type": "string",
+            "description": "Music genre",
+            "example": "Gnawa"
+          },
+          "photo_url": {
+            "type": "string",
+            "description": "URL to artist photo",
+            "example": "https://example.com/artist.jpg"
+          },
+          "performance_time": {
+            "type": "string",
+            "description": "Performance time slot (format: HH:MM - HH:MM)",
+            "example": "21:00 - 22:00"
+          },
+          "performance_order": {
+            "type": "integer",
+            "description": "Order of performance",
+            "example": 2
+          },
+          "is_headliner": {
+            "type": "boolean",
+            "description": "Whether the artist is a headliner",
+            "example": false
+          }
+        }
+      },
+      "Booking": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Booking ID",
+            "example": 1
+          },
+          "confirmation_code": {
+            "type": "string",
+            "description": "Unique booking confirmation code",
+            "example": "GNAWA123"
+          },
+          "customer_name": {
+            "type": "string",
+            "description": "Customer full name",
+            "example": "John Doe"
+          },
+          "customer_email": {
+            "type": "string",
+            "format": "email",
+            "description": "Customer email address",
+            "example": "john.doe@example.com"
+          },
+          "customer_phone": {
+            "type": "string",
+            "description": "Customer phone number",
+            "example": "+212612345678"
+          },
+          "number_of_tickets": {
+            "type": "integer",
+            "description": "Number of tickets booked (1-10)",
+            "minimum": 1,
+            "maximum": 10,
+            "example": 2
+          },
+          "total_amount": {
+            "type": "string",
+            "format": "decimal",
+            "description": "Total booking amount in MAD",
+            "example": "300.00"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["confirmed", "cancelled", "pending"],
+            "description": "Booking status",
+            "example": "confirmed"
+          },
+          "booking_date": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date and time of booking"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "CreateBookingRequest": {
+        "type": "object",
+        "required": ["customer_name", "customer_email", "customer_phone", "number_of_tickets"],
+        "properties": {
+          "customer_name": {
+            "type": "string",
+            "description": "Customer full name",
+            "example": "John Doe"
+          },
+          "customer_email": {
+            "type": "string",
+            "format": "email",
+            "description": "Customer email address",
+            "example": "john.doe@example.com"
+          },
+          "customer_phone": {
+            "type": "string",
+            "description": "Customer phone number",
+            "example": "+212612345678"
+          },
+          "number_of_tickets": {
+            "type": "integer",
+            "description": "Number of tickets to book (1-10)",
+            "minimum": 1,
+            "maximum": 10,
+            "example": 2
+          }
+        }
+      }
+    }
+  }
+}
